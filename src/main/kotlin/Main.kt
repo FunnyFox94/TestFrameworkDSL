@@ -1,23 +1,29 @@
 import dsl.TestSuite
+import dsl.shouldBe
+import dsl.shouldContain
+import kotlinx.coroutines.delay
 
 fun main() {
-    val suite = TestSuite("Sample tests") {
+    val suite = TestSuite("Async tests") {
         testCase("Test 1") {
-            println("Running Test 1...")
+            delay(1000)
+            val result = 5 + 5
+            result shouldBe 10
         }
         testCase("Test 2") {
-            println("Running Test 1...")
-            throw IllegalArgumentException("Something went wrong")
+            delay(1000)
+            val result = 5 + 5
+            result shouldBe 11
         }
         testCase("Test 3") {
-            println("Running Test 3...")
+            delay(500)
+            val greeting = "Hello kitty"
+            greeting shouldContain "kitty"
         }
         testCase("Test 4") {
-            println("Running Test 4...")
-        }
-        testCase("Test 5") {
-            println("Running Test 5...")
-            throw IllegalArgumentException("Something went wrong")
+            delay(500)
+            val greeting = "Hello kitty"
+            greeting shouldContain "goodbye"
         }
     }
 

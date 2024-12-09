@@ -1,16 +1,18 @@
 package dsl
 
+import kotlinx.coroutines.runBlocking
+
 class TestCase(
     val name: String,
-    val execute: () -> Unit
+    val execute: suspend () -> Unit
 ) {
     fun run(): Boolean {
         return try {
-            execute()
-            println("Test '$name' passed")
+            runBlocking { execute() }
+            Logger.success("Test $name, passed")
             true
         } catch (e: Exception) {
-            println("Test '$name' failed: ${e.message}")
+            Logger.error("Test '$name' failed: ${e.message}")
             false
         }
     }
